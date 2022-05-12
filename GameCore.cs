@@ -8,7 +8,7 @@ public class GameCore : MonoBehaviour
     [Header("玩家位置")]
     public Transform player;
     
-    [Header("怪物殭屍Prefab")]
+    [Header("怪物Prefabs")]
     public GameObject[] monsters;
     [Header("生成怪物的座標")]
     public Transform[] monstersPoint;
