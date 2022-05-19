@@ -5,12 +5,14 @@ using UnityEngine.AI;
 
 public class Monster : MonoBehaviour
 {
+
     private Animator anim;
     private NavMeshAgent nav;
+    private Rigidbody rb;
 
     public float hp = 100f;
 
-    private Rigidbody rb;
+    public GameObject getHitEffect;
 
     void Start()
     {
@@ -25,6 +27,10 @@ public class Monster : MonoBehaviour
     void Update()
     {
         Movement();
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            OnGetHit(100);
+        }
     }
     private void Movement()
     {
@@ -51,6 +57,7 @@ public class Monster : MonoBehaviour
 
     private void Die()
     {
+        Instantiate(getHitEffect, transform.position + Vector3.up *1, transform.rotation);
         anim.enabled = false;
         rb.isKinematic = false;
         Vector3 randomV3 = new Vector3(Random.Range(-5f, 5f), Random.Range(3f, 5f), Random.Range(-5f, 5f));
