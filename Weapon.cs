@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +10,8 @@ public class Weapon : MonoBehaviour
         if (other.gameObject.CompareTag("Monster"))
         {
             Monster monster = other.GetComponent<Monster>();
-            monster.OnGetHit(damage);
+            float value = Random.Range(damage * 0.9f, damage * 1.1f);
+            monster.OnGetHit(value);
         }
     }
 }
