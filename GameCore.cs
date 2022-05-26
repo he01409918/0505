@@ -46,6 +46,6 @@ public class GameCore : MonoBehaviour
     {
         GameObject _damageTextPrefab = Instantiate(damageTextPrefab, position, Quaternion.identity);
         _damageTextPrefab.transform.LookAt(Camera.main.transform);
-        _damageTextPrefab.GetComponentInChildren<Text>().text = value.ToString();
+        _damageTextPrefab.GetComponentInChildren<Text>().text = value.ToString("0");
     }
 }
