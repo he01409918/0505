@@ -18,6 +18,9 @@ public class GameCore : MonoBehaviour
     [Header("顯示擊殺數的文本")]
     public Text killText;
 
+    [Header("文字傷害Prefab")]
+    public GameObject damageTextPrefab;
+
     private int currentKillCount;
 
     private void Start()
@@ -37,6 +40,12 @@ public class GameCore : MonoBehaviour
     public void OnUpdateKillText(int value)
     {
         currentKillCount += value;
-        killText.text = currentKillCount.ToString();
+        killText.text = $"擊殺數 : {currentKillCount}";
+    }
+    public void InitDamageText(Vector3 position , float value)
+    {
+        GameObject _damageTextPrefab = Instantiate(damageTextPrefab, position, Quaternion.identity);
+        _damageTextPrefab.transform.LookAt(Camera.main.transform);
+        _damageTextPrefab.GetComponentInChildren<Text>().text = value.ToString();
     }
 }
