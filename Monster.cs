@@ -10,10 +10,12 @@ public class Monster : MonoBehaviour
     private NavMeshAgent nav;
     private Rigidbody rb;
     private Renderer rend;
-
+    [Header("血量")]
     public float hp = 100f;
-
+    [Header("死亡特效")]
     public GameObject getHitEffect;
+    [Header("受擊音效")]
+    public GameObject getHitSoundPrefab;
 
     void Start()
     {
@@ -50,12 +52,19 @@ public class Monster : MonoBehaviour
         {
             StartCoroutine(DoSkinFlash());
             hp -= value;
-            GameCore.Instance.InitDamageText(transform.position, value);
+            InitDamageText(value);
+            Instantiate(getHitSoundPrefab, transform.position, transform.rotation);
             if (hp <= 0)
             {
                 Die();
             }
         }
+    }
+
+    private void InitDamageText(float value)
+    {
+        Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(1f, 1.5f), Random.Range(-0.5f, 0.5f));
+        GameCore.Instance.InitDamageText(transform.position + offset, value);
     }
 
     private void Die()
