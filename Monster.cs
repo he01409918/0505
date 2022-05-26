@@ -35,7 +35,7 @@ public class Monster : MonoBehaviour
     }
     private void Movement()
     {
-        if (nav != null &&hp>0)
+        if (nav != null && hp > 0)
         {
             nav.SetDestination(GameCore.Instance.player.position);
         }
@@ -50,6 +50,7 @@ public class Monster : MonoBehaviour
         {
             StartCoroutine(DoSkinFlash());
             hp -= value;
+            GameCore.Instance.InitDamageText(transform.position, value);
             if (hp <= 0)
             {
                 Die();
@@ -60,8 +61,8 @@ public class Monster : MonoBehaviour
     private void Die()
     {
         GameCore.Instance.OnUpdateKillText(1);
-        Instantiate(getHitEffect, transform.position + Vector3.up *1, transform.rotation);
-        
+        Instantiate(getHitEffect, transform.position + Vector3.up * 1, transform.rotation);
+
         /*anim.enabled = false;
         rb.isKinematic = false;
         Vector3 randomV3 = new Vector3(Random.Range(-5f, 5f), Random.Range(3f, 5f), Random.Range(-5f, 5f));
@@ -77,7 +78,7 @@ public class Monster : MonoBehaviour
     {
         rend.material.color = Color.red;
         yield return new WaitForSeconds(0.2f);
-        rend.material.color = Color.white; 
+        rend.material.color = Color.white;
     }
 
 }
