@@ -23,6 +23,9 @@ public class GameCore : MonoBehaviour
 
     private int currentKillCount;
 
+    [Header("閃爍動畫")]
+    public Animator cameraAnimator;
+
     private void Start()
     {
         Instance = this;
@@ -47,5 +50,10 @@ public class GameCore : MonoBehaviour
         GameObject _damageTextPrefab = Instantiate(damageTextPrefab, position, Quaternion.identity);
         _damageTextPrefab.transform.LookAt(Camera.main.transform);
         _damageTextPrefab.GetComponentInChildren<Text>().text = value.ToString("0");
+    }
+
+    public void OnCameraFlash()
+    {
+        cameraAnimator.Play("Flash");
     }
 }
