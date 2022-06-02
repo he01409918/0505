@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class Monster : MonoBehaviour
 {
-
     private Animator anim;
     private NavMeshAgent nav;
     private Rigidbody rb;
@@ -16,7 +15,9 @@ public class Monster : MonoBehaviour
     public GameObject getHitEffect;
     [Header("受擊音效")]
     public GameObject getHitSoundPrefab;
-
+    [Header("攻擊間隔")]
+    public float attackTime = 3;
+    private float currentAttackTimer;
     void Start()
     {
         nav = GetComponent<NavMeshAgent>();
@@ -30,11 +31,29 @@ public class Monster : MonoBehaviour
     void Update()
     {
         Movement();
+        CheckAttack();
         if (Input.GetKeyDown(KeyCode.C))
         {
             OnGetHit(100);
         }
     }
+    private void CheckAttack()
+    {
+        if (nav.remainingDistance <= nav.stoppingDistance)
+        {
+            currentAttackTimer += Time.deltaTime;
+            if (currentAttackTimer >= attackTime)
+            {
+                OnAttack();
+                currentAttackTimer = 0;
+            }
+        }
+    }
+    private void OnAttack()
+    {
+        anim.SetTrigger("Attack");
+    }
+
     private void Movement()
     {
         if (nav != null && hp > 0)
