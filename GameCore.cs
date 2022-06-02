@@ -26,6 +26,9 @@ public class GameCore : MonoBehaviour
     [Header("閃爍動畫")]
     public Animator cameraAnimator;
 
+    [Header("玩家血量")]
+    public float hp;
+
     private void Start()
     {
         Instance = this;
@@ -55,5 +58,17 @@ public class GameCore : MonoBehaviour
     public void OnCameraFlash()
     {
         cameraAnimator.Play("Flash");
+    }
+
+    public void PlayerGetHit(float value)
+    {
+        if (hp > 0)
+        {
+            hp -= value;
+            if (hp <=0)
+            {
+                Debug.LogError("GameOver");
+            }
+        }
     }
 }
