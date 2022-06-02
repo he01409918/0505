@@ -54,6 +54,11 @@ public class Monster : MonoBehaviour
         anim.SetTrigger("Attack");
     }
 
+    public void DoDamage()
+    {
+        GameCore.Instance.OnCameraFlash();
+    }
+
     private void Movement()
     {
         if (nav != null && hp > 0)
