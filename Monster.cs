@@ -18,6 +18,10 @@ public class Monster : MonoBehaviour
     [Header("攻擊間隔")]
     public float attackTime = 3;
     private float currentAttackTimer;
+
+    [Header("攻擊力")]
+    public float damage = 20f;
+
     void Start()
     {
         nav = GetComponent<NavMeshAgent>();
@@ -57,6 +61,7 @@ public class Monster : MonoBehaviour
     public void DoDamage()
     {
         GameCore.Instance.OnCameraFlash();
+        GameCore.Instance.PlayerGetHit(damage);
     }
 
     private void Movement()
