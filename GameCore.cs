@@ -38,6 +38,9 @@ public class GameCore : MonoBehaviour
 
     private bool isFinish = false;
 
+    [Header("勝利金幣")]
+    public GameObject coins;
+
     private void Start()
     {
         Instance = this;
@@ -57,7 +60,9 @@ public class GameCore : MonoBehaviour
         currentKillCount += value;
         if (currentKillCount >= winKillCount && !isFinish)
         {
-            Debug.LogError("Win");
+            coins.SetActive(true);
+            RelaseAllMonsters();
+            Invoke(nameof(LoadScene), 5);
             isFinish = true;
         }
         killText.text = $"擊殺數 : {currentKillCount}";
@@ -92,7 +97,7 @@ public class GameCore : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    private void RelaseAllMonster()
+    private void RelaseAllMonsters()
     {
         CancelInvoke(nameof(InitMonster));
         Monster[] monster = FindObjectsOfType<Monster>();
