@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameCore : MonoBehaviour
 {
@@ -32,6 +33,11 @@ public class GameCore : MonoBehaviour
     [Header("玩家血量")]
     public float hp;
 
+    [Header("勝利擊殺數")]
+    public int winKillCount = 5;
+
+    private bool isFinish = false;
+
     private void Start()
     {
         Instance = this;
@@ -49,6 +55,11 @@ public class GameCore : MonoBehaviour
     public void OnUpdateKillText(int value)
     {
         currentKillCount += value;
+        if (currentKillCount >= winKillCount && !isFinish)
+        {
+            Debug.LogError("Win");
+            isFinish = true;
+        }
         killText.text = $"擊殺數 : {currentKillCount}";
     }
     public void InitDamageText(Vector3 position , float value)
@@ -71,13 +82,14 @@ public class GameCore : MonoBehaviour
             if (hp <=0)
             {
                 gameoverAnimator.Play("GameOver");
+                Invoke(nameof(LoadScene), 5);
             }
         }
     }
 
     private void LoadScene()
     {
-
+        SceneManager.LoadScene(0);
     }
 
     private void RelaseAllMonster()
