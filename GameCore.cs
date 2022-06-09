@@ -26,6 +26,9 @@ public class GameCore : MonoBehaviour
     [Header("閃爍動畫")]
     public Animator cameraAnimator;
 
+    [Header("失敗動畫")]
+    public Animator gameoverAnimator;
+
     [Header("玩家血量")]
     public float hp;
 
@@ -67,8 +70,23 @@ public class GameCore : MonoBehaviour
             hp -= value;
             if (hp <=0)
             {
-                Debug.LogError("GameOver");
+                gameoverAnimator.Play("GameOver");
             }
+        }
+    }
+
+    private void LoadScene()
+    {
+
+    }
+
+    private void RelaseAllMonster()
+    {
+        CancelInvoke(nameof(InitMonster));
+        Monster[] monster = FindObjectsOfType<Monster>();
+        for (int i = 0; i < monster.Length; i++)
+        {
+            monster[i].OnGetHit(999);
         }
     }
 }
